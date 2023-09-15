@@ -1,5 +1,5 @@
 ---
-- name: Disable firwalld
+- name: Disable firewalld
   ansible.builtin.service:
     name: firewalld
     enabled: no
@@ -60,9 +60,9 @@
     validate: 'visudo -cf %s'
   when: ansible_distribution in ['CentOS', 'Rocky', 'Red Hat Enterprise Linux']
 
-- name: get pre-requisite packages for longhorn
+- name: Get pre-requisite packages for longhorn
   package:
-    name: 
+    name:
       - iscsi-initiator-utils
       - nfs-utils
     state: present

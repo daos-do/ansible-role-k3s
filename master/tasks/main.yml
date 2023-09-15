@@ -51,7 +51,7 @@
     owner: "{{ ansible_user }}"
     mode: "u=rwx,g=rx,o="
 
-- name: Set permisisons on k3s.yaml
+- name: Set permissions on k3s.yaml
   file:
     path: /etc/rancher/k3s/k3s.yaml
     owner: "root"
