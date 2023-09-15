@@ -1,0 +1,37 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: '${MOLECULE_SCENARIO_DIRECTORY}/requirements.yml'
+    requirements-file: '${MOLECULE_SCENARIO_DIRECTORY}/requirements.yml'
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+driver:
+  name: docker
+platforms:
+  - name: 'packages-centos7'
+    image: daosdo/centos-systemd:7.9
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: yes
+    pre_build_image: yes
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      stdout_callback: yaml
+      bin_ansible_callbacks: yes
+verifier:
+  name: ansible
+scenario:
+  name: default
+  test_sequence:
+    - lint
+    - syntax
+    # - create
+    # - converge
+    # - idempotence
+    # - verify
+    # - destroy
